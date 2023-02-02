@@ -1101,9 +1101,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
-<p id="section-note.1-2">Discussion of this document takes place on the Adaptive DNS Discovery
-      Working Group mailing list (add@ietf.org), which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/add/">https://mailarchive.ietf.org/arch/browse/add/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at <span><a href="https://github.com/ietf-wg-add/draft-ietf-add-split-horizon-authority">https://github.com/ietf-wg-add/draft-ietf-add-split-horizon-authority</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Discussion of this document takes place on the
+          Adaptive DNS Discovery Working Group mailing list (add@ietf.org),
+          which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/add/">https://mailarchive.ietf.org/arch/browse/add/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+          <span><a href="https://github.com/ietf-wg-add/draft-ietf-add-split-horizon-authority">https://github.com/ietf-wg-add/draft-ietf-add-split-horizon-authority</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1264,32 +1266,32 @@ svg :is([fill="white"], [fill^="#fff"]) {
       synthesis for .onion</a> [<a href="#RFC7686" class="cite xref">RFC7686</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">In many network environments, the network offers clients a DNS server
       (e.g. DHCP OFFER, IPv6 Router Advertisement). Although this server is
-      formally specified as a recursive resolver (e.g. <span><a href="https://rfc-editor.org/rfc/rfc6106#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC6106" class="cite xref">RFC6106</a>]</span>), some networks provide a hybrid resolver instead.
-      If this resolver acts as an authoritative server for some names, we say
-      that the network has "split-horizon DNS", because those names resolve in
-      this way only from inside the network.<a href="#section-1-3" class="pilcrow">¶</a></p>
+      formally specified as a recursive resolver (e.g. <span><a href="https://rfc-editor.org/rfc/rfc6106#section-5.1" class="relref">Section 5.1</a> of [<a href="#RFC6106" class="cite xref">RFC6106</a>]</span>), some networks provide a hybrid resolver
+      instead. If this resolver acts as an authoritative server for some
+      names, we say that the network has "split-horizon DNS", because those
+      names resolve in this way only from inside the network.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Network clients that use pure stub resolution, sending all queries to
       the network-provided resolver, will always receive the split-horizon
       results. Conversely, clients that send all queries to a different
       resolver or implement pure full resolution locally will never receive
-      them. Clients that strictly implement either of these resolution
-      behaviors are out of scope for this specification. Instead, this
-      specification enables hybrid clients to access split-horizon results
-      from a network-provided hybrid resolver, while using a different
-      resolution method for some or all other names.<a href="#section-1-4" class="pilcrow">¶</a></p>
+      them. Clients that strictly implement either of these resolution behaviors are out of scope for
+      this specification. Instead, this specification enables hybrid clients
+      to access split-horizon results from a network-provided hybrid resolver,
+      while using a different resolution method for some or all other
+      names.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">There are several existing mechanisms for a network to provide
       clients with "local domain hints", listing domain names that have
-      special treatment in this network (<a href="#learning" class="auto internal xref">Section 4</a>). However,
-      none of the local domain hint mechanisms enable clients to determine
-      whether this special treatment is authorized by the domain owner.
-      Instead, these specifications require clients to make their own
+      special treatment in this network (<a href="#learning" class="auto internal xref">Section 4</a>).
+      However, none of the local domain hint mechanisms enable clients to
+      determine whether this special treatment is authorized by the domain
+      owner. Instead, these specifications require clients to make their own
       determinations about whether to trust and rely on these hints.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">This specification describes a protocol between domains, networks,
       and clients that allows the network to establish its authority over a
-      domain to a client (<a href="#establishing" class="auto internal xref">Section 5</a>). Clients can use
-      this protocol to confirm that a local domain hint was authorized by the
-      domain (<a href="#validating" class="auto internal xref">Section 6</a>), which might influence its
-      processing of that hint.<a href="#section-1-6" class="pilcrow">¶</a></p>
+      domain to a client (<a href="#establishing" class="auto internal xref">Section 5</a>). Clients can
+      use this protocol to confirm that a local domain hint was authorized by
+      the domain (<a href="#validating" class="auto internal xref">Section 6</a>), which might influence
+      its processing of that hint.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">This specification relies on securely identified local DNS servers
       and globally valid NS records. Use of this specification is therefore
       limited to servers that support authenticated encryption and
@@ -1304,33 +1306,32 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-terminology">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
-<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>",
-      "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>",
-      "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
-      "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are
-      to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span><span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as
-      shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">This document makes use of the terms defined in <span>[<a href="#RFC8499" class="cite xref">RFC8499</a>]</span>, e.g. "Global DNS". The following additional terms
-      are used throughout the document:<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>",
+      "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>", "<span class="bcp14">MAY</span>", and
+      "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as described in BCP 14
+      <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span><span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and
+      only when, they appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">This document makes use of the terms defined in <span>[<a href="#RFC8499" class="cite xref">RFC8499</a>]</span>, e.g. "Global DNS".  The following additional terms are
+      used throughout the document:<a href="#section-2-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-2-3">
         <dt id="section-2-3.1">Encrypted DNS</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.2">A DNS protocol that provides an encrypted channel between a DNS
-        client and server (e.g., DoT, DoH, or DoQ).<a href="#section-2-3.2" class="pilcrow">¶</a>
+        <dd style="margin-left: 1.5em" id="section-2-3.2">A DNS protocol that provides an encrypted
+          channel between a DNS client and server (e.g., DoT, DoH, or DoQ).<a href="#section-2-3.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-3.3">Split-Horizon DNS</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.4">The DNS service provided by a resolver that also acts as an
-        authoritative server for some names, providing resolution results that
-        are meaningfully different from those in the Global DNS. (See "Split
-        DNS" in <span><a href="https://rfc-editor.org/rfc/rfc8499#section-6" class="relref">Section 6</a> of [<a href="#RFC8499" class="cite xref">RFC8499</a>]</span>.)<a href="#section-2-3.4" class="pilcrow">¶</a>
+        <dd style="margin-left: 1.5em" id="section-2-3.4">The DNS service provided by a resolver
+          that also acts as an authoritative server for some names, providing
+          resolution results that are meaningfully different from those in the
+          Global DNS. (See "Split DNS" in <span><a href="https://rfc-editor.org/rfc/rfc8499#section-6" class="relref">Section 6</a> of [<a href="#RFC8499" class="cite xref">RFC8499</a>]</span>.)<a href="#section-2-3.4" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt id="section-2-3.5">Validated Split-Horizon</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.6">A split horizon configuration for some name is considered
-        "validated" if the client has confirmed that a parent of that name has
-        authorized this resolver to serve its own responses for that name.
-        Such authorization generally extends to the entire subtree of names
-        below the authorization point.<a href="#section-2-3.6" class="pilcrow">¶</a>
+        <dd style="margin-left: 1.5em" id="section-2-3.6">A split horizon configuration for
+          some name is considered "validated" if the client has confirmed that
+          a parent of that name has authorized this resolver  to serve its own
+          responses for that name. Such authorization generally extends to the
+          entire subtree of names below the authorization point.<a href="#section-2-3.6" class="pilcrow">¶</a>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1340,19 +1341,18 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-scope">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-scope" class="section-name selfRef">Scope</a>
       </h2>
-<p id="section-3-1">The protocol in this document is designed to support the ability of a
-      domain owner to create or authorize a split-horizon view of their
-      domain. The protocol does not support split-horizon views created by any
-      other entity. Thus, DNS filtering is not enabled by this protocol.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The protocol in this document is designed to support the ability of
+      a domain owner to create or authorize a split-horizon view of their
+      domain. The protocol does not support split-horizon views created by
+      any other entity. Thus, DNS filtering is not enabled by this protocol.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The protocol is applicable to any type of network offering
       split-horizon DNS configuration. The endpoint does not need any prior
       configuration to confirm that a local domain hint was indeed authorized
       by the domain.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">All of the special-use domain names registered with IANA <span>[<a href="#IANA-SUDN" class="cite xref">IANA-SUDN</a>]</span>, most notably ".home.arpa", "resolver.arpa.",
-      "ipv4only.arpa." and ".local", are never unique to a specific DNS
-      server's authority. All special-use domain names are outside the scope
-      of this document and MUST NOT be validated using the mechanism described
-      in this document.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-3">All of the special-use domain names registered with IANA <span>[<a href="#IANA-SUDN" class="cite xref">IANA-SUDN</a>]</span>,
+      most notably ".home.arpa", "resolver.arpa.", "ipv4only.arpa." and ".local", are never
+      unique to a specific DNS server's authority. All special-use domain names are outside the
+      scope of this document and MUST NOT be validated using the mechanism described in this document.<a href="#section-3-3" class="pilcrow">¶</a></p>
 </section>
 <div id="learning">
 <section id="section-4">
@@ -1375,12 +1375,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
         difficulty of relying on these hints without validation:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <blockquote id="section-4.1-2">
           <p id="section-4.1-2.1">Trustworthiness of an interface and configuration information
-          received over the interface is implementation and/or node deployment
-          dependent, and the details of determining that trust are beyond the
-          scope of this specification.<a href="#section-4.1-2.1" class="pilcrow">¶</a></p>
+            received over the interface is implementation and/or node
+            deployment dependent, and the details of determining that trust
+            are beyond the scope of this specification.<a href="#section-4.1-2.1" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-4.1-3">Other local domain hints in DHCP include the <span><a href="#RFC2132" class="internal xref">"Domain Name"</a> [<a href="#RFC2132" class="cite xref">RFC2132</a>]</span>, <span><a href="#RFC5986" class="internal xref">"Access
-        Network Domain Name"</a> [<a href="#RFC5986" class="cite xref">RFC5986</a>]</span>, "Client FQDN" <span>[<a href="#RFC4702" class="cite xref">RFC4702</a>]</span><span>[<a href="#RFC4704" class="cite xref">RFC4704</a>]</span>, and <span><a href="#RFC2937" class="internal xref">"Name Service Search"</a> [<a href="#RFC2937" class="cite xref">RFC2937</a>]</span> options. This
+<p id="section-4.1-3">Other local domain hints in DHCP include the <span><a href="#RFC2132" class="internal xref">"Domain Name"</a> [<a href="#RFC2132" class="cite xref">RFC2132</a>]</span>, <span><a href="#RFC5986" class="internal xref">"Access Network Domain Name"</a> [<a href="#RFC5986" class="cite xref">RFC5986</a>]</span>, "Client FQDN" <span>[<a href="#RFC4702" class="cite xref">RFC4702</a>]</span><span>[<a href="#RFC4704" class="cite xref">RFC4704</a>]</span>, and <span><a href="#RFC2937" class="internal xref">"Name Service Search"</a> [<a href="#RFC2937" class="cite xref">RFC2937</a>]</span> options. This
         specification may help clients to interpret these hints. For example,
         a rogue DHCP server could use the "Client FQDN" option to assign a
         client the name "www.example.com" in order to prevent the client from
@@ -1388,9 +1387,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
         specification to check the network's authority over this name, and
         adjust its behavior to avoid this attack if authority is not
         established.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.1-4">The Domain Search option <span>[<a href="#RFC3397" class="cite xref">RFC3397</a>]</span><span>[<a href="#RFC3646" class="cite xref">RFC3646</a>]</span>, which offers clients a way to expand short names
-        into Fully Qualified Domain Names, is not a "local domain hint" by
-        this definition, because it does not modify the processing of any
+<p id="section-4.1-4">The Domain Search option <span>[<a href="#RFC3397" class="cite xref">RFC3397</a>]</span><span>[<a href="#RFC3646" class="cite xref">RFC3646</a>]</span>, which offers clients a way to expand short
+        names into Fully Qualified Domain Names, is not a "local domain hint"
+        by this definition, because it does not modify the processing of any
         specific domain. (The specification notes that this option can be a
         "fruitful avenue of attack for a rogue DHCP server", and provides a
         number of cautions against accepting it unconditionally.)<a href="#section-4.1-4" class="pilcrow">¶</a></p>
@@ -1403,14 +1402,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h3>
 <p id="section-4.2-1">A host can be configured with DNS information when it joins a
         network, including when it brings up VPN (which is also considered
-        joining a(n additional) network, detailed in <a href="#vpn" class="auto internal xref">Section 8</a>).
-        Existing implementations determine the host has joined a certain
-        network via SSID, IP subnet assigned, DNS server IP address or name,
-        and other similar mechanisms. For example, one existing implementation
-        determines the host has joined an internal network because the
-        DHCP-assigned IP address belongs to the company's IP range (as
-        assigned by the regional IP addressing authority) and the
-        DHCP-advertised DNS IP address is one used by IT at that network.
+        joining a(n additional) network, detailed in <a href="#vpn" class="auto internal xref">Section 8</a>). Existing implementations determine the host has
+        joined a certain network via SSID, IP subnet assigned, DNS server IP
+        address or name, and other similar mechanisms. For example, one
+        existing implementation determines the host has joined an internal
+        network because the DHCP-assigned IP address belongs to the company's
+        IP range (as assigned by the regional IP addressing authority) and
+        the DHCP-advertised DNS IP address is one used by IT at that network.
         Other mechanisms exist in other products but are not interesting to
         this specification; rather what is interesting is this step to
         determine "we have joined the internal corporate network" occurred and
@@ -1426,12 +1424,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-provisioning-domains-dnszon">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-provisioning-domains-dnszon" class="section-name selfRef">Provisioning Domains dnsZones</a>
         </h3>
-<p id="section-4.3-1">Provisioning Domains (PvDs) are defined in <span>[<a href="#RFC7556" class="cite xref">RFC7556</a>]</span> as sets of network configuration information that
-        clients can use to access networks, including rules for DNS resolution
-        and proxy configuration. The PvD Key "dnsZones" is defined in <span>[<a href="#RFC8801" class="cite xref">RFC8801</a>]</span> as a list of "DNS zones searchable and accessible"
-        in this provisioning domain. Attempting to resolve these names via
-        another resolver might fail or return results that are not correct for
-        this network.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">Provisioning Domains (PvDs) are defined in <span>[<a href="#RFC7556" class="cite xref">RFC7556</a>]</span> as sets of network configuration information
+        that clients can use to access networks, including rules for DNS
+        resolution and proxy configuration. The PvD Key "dnsZones" is defined
+        in <span>[<a href="#RFC8801" class="cite xref">RFC8801</a>]</span> as a list of "DNS zones searchable
+        and accessible" in this provisioning domain. Attempting to resolve
+        these names via another resolver might fail or return results that are
+        not correct for this network.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-4.4">
@@ -1439,18 +1438,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-split-dns-configuration-for" class="section-name selfRef">Split DNS Configuration for IKEv2</a>
         </h3>
 <p id="section-4.4-1">In IKEv2 VPNs, the INTERNAL_DNS_DOMAIN configuration attribute can
-        be used to indicate that a domain is "internal" to the VPN <span>[<a href="#RFC8598" class="cite xref">RFC8598</a>]</span>. To prevent abuse, the specification notes various
-        possible restrictions on the use of this attribute:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+        be used to indicate that a domain is "internal" to the VPN <span>[<a href="#RFC8598" class="cite xref">RFC8598</a>]</span>. To prevent abuse, the specification notes
+        various possible restrictions on the use of this attribute:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <blockquote id="section-4.4-2">
           <p id="section-4.4-2.1">If a client is configured by local policy to only accept a
-          limited set of INTERNAL_DNS_DOMAIN values, the client MUST ignore
-          any other INTERNAL_DNS_DOMAIN values. (<span>[<a href="#RFC8598" class="cite xref">RFC8598</a>], <a href="https://rfc-editor.org/rfc/rfc8598#section-5" class="relref">Section 5</a></span>)<a href="#section-4.4-2.1" class="pilcrow">¶</a></p>
-<p id="section-4.4-2.2">IKE clients MAY want to require whitelisted domains for Top-Level
-          Domains (TLDs) and Second-Level Domains (SLDs) to further prevent
-          malicious DNS redirections for well-known domains. (<span>[<a href="#RFC8598" class="cite xref">RFC8598</a>], <a href="https://rfc-editor.org/rfc/rfc8598#section-9" class="relref">Section 9</a></span>)<a href="#section-4.4-2.2" class="pilcrow">¶</a></p>
+            limited set of INTERNAL_DNS_DOMAIN values, the client MUST ignore
+            any other INTERNAL_DNS_DOMAIN values.
+            (<span>[<a href="#RFC8598" class="cite xref">RFC8598</a>], <a href="https://rfc-editor.org/rfc/rfc8598#section-5" class="relref">Section 5</a></span>)<a href="#section-4.4-2.1" class="pilcrow">¶</a></p>
+<p id="section-4.4-2.2">IKE clients MAY want to require whitelisted domains for
+            Top-Level Domains (TLDs) and Second-Level Domains (SLDs) to
+            further prevent malicious DNS redirections for well-known
+            domains.
+            (<span>[<a href="#RFC8598" class="cite xref">RFC8598</a>], <a href="https://rfc-editor.org/rfc/rfc8598#section-9" class="relref">Section 9</a></span>)<a href="#section-4.4-2.2" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-4.4-3">Within these guidelines, a client could adopt a local policy of
-        accepting INTERNAL_DNS_DOMAIN values only when it can validate the
+<p id="section-4.4-3"> Within these guidelines, a client could adopt a local policy
+        of accepting INTERNAL_DNS_DOMAIN values only when it can validate the
         local DNS server's authority over those names as described in this
         specification.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
 </section>
@@ -1461,16 +1463,18 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-establishing-local-dns-auth">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-establishing-local-dns-auth" class="section-name selfRef">Establishing Local DNS Authority</a>
       </h2>
-<p id="section-5-1">To establish its authority over some DNS zone, a participating
-      network <span class="bcp14">MUST</span> offer one or more encrypted resolvers via
-      DNR <span>[<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, DDR <span>[<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, or an equivalent mechanism (see <a href="#vpn" class="auto internal xref">Section 8</a>). If the encrypted resolver is identified by name (e.g.,
-      DNR), at least one of these resolvers' Authentication Domain Names
-      (ADNs) <span class="bcp14">MUST</span> appear in an NS record for that zone. If the
-      encrypted resolver is identified by IP address (e.g., DDR), then the
-      resolver MUST present a certificate that can be validated by the client,
-      containing at least one subjectAltName entry that matches an NS record
-      for that zone. This arrangement establishes this resolver's authority
-      over the zone.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">To establish its authority over some DNS zone, a
+      participating network <span class="bcp14">MUST</span> offer one or more
+      encrypted resolvers via DNR <span>[<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>,
+      DDR <span>[<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, or an equivalent mechanism
+      (see <a href="#vpn" class="auto internal xref">Section 8</a>).  If the encrypted resolver is
+      identified by name (e.g., DNR), at least one of these resolvers'
+      Authentication Domain Names (ADNs) <span class="bcp14">MUST</span> appear in
+      an NS record for that zone.  If the encrypted resolver is
+      identified by IP address (e.g., DDR), then the resolver MUST present a
+      certificate that can be validated by the client, containing at least
+      one subjectAltName entry that matches an NS record for that zone.
+      This arrangement establishes this resolver's authority over the zone.<a href="#section-5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="validating">
@@ -1479,14 +1483,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-validating-authority-over-l" class="section-name selfRef">Validating Authority over Local Domain Hints</a>
       </h2>
 <p id="section-6-1">To validate the network's authority over a domain name, participating
-      clients <span class="bcp14">MUST</span> resolve the NS record for that name. If the
-      resolution result is NODATA, the client <span class="bcp14">MUST</span> remove the
-      last label and repeat the query until a response other than NODATA is
-      received.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Once the NS record has been resolved, the client <span class="bcp14">MUST</span>
-      check if each local encrypted resolver's Authentication Domain Name
-      appears in the NS record. The client <span class="bcp14">SHALL</span> regard each
-      such resolver as authoritative for the zone of this NS record.<a href="#section-6-2" class="pilcrow">¶</a></p>
+      clients <span class="bcp14">MUST</span> resolve the NS record for that name. If the resolution
+      result is NODATA, the client <span class="bcp14">MUST</span> remove the last label and repeat the
+      query until a response other than NODATA is received.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">Once the NS record has been resolved, the client <span class="bcp14">MUST</span> check if each
+      local encrypted resolver's Authentication Domain Name appears in the NS
+      record. The client <span class="bcp14">SHALL</span> regard each such resolver as authoritative for
+      the zone of this NS record.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">Each validation of authority applies only to the specific resolvers
       whose names appear in the NS RRSet. If a network offers multiple
       encrypted resolvers, each DNS entry may be authorized for a distinct
@@ -1500,17 +1503,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-using-a-pre-configured-exte">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-using-a-pre-configured-exte" class="section-name selfRef">Using a Pre-configured External Resolver</a>
         </h3>
-<p id="section-6.1-1">This method applies only if the client is already configured with a
-        default resolution strategy that sends queries to a resolver outside
-        of the network over a secure transport. That resolution strategy is
+<p id="section-6.1-1">This method applies only if the client is already configured with
+        a default resolution strategy that sends queries to a resolver outside
+        of the network over a secure transport.  That resolution strategy is
         considered "tamperproof" because any actor who could modify the NS
-        response could already modify all of the user's other DNS
-        responses.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.1-2">To ensure that this assumption holds, clients <span class="bcp14">MUST NOT</span> relax the acceptance rules they would otherwise apply when
-        using this resolver. For example, if the client would check the AD bit
-        or validate RRSIGs locally when using this resolver, it must also do
-        so when resolving NS records for this purpose. Alternatively, a client
-        might perform DNSSEC validation for the NS query used for this purpose
+        response could already modify all of the user's other DNS responses.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">To ensure that this assumption holds, clients <span class="bcp14">MUST NOT</span>
+        relax the acceptance rules they would otherwise apply when using this
+        resolver. For example, if the client would check the AD bit or
+        validate RRSIGs locally when using this resolver, it must also do so
+        when resolving NS records for this purpose. Alternatively, a client might
+        perform DNSSEC validation for the NS query used for this purpose
         even if it has disabled DNSSEC validation for other DNS queries.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1522,23 +1525,20 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-6.2-1">The client resolves the NS record using any resolution method of
         its choice (e.g. querying one of the network-provided resolvers,
         performing iterative resolution locally), and performs full DNSSEC
-        validation locally <span>[<a href="#RFC6698" class="cite xref">RFC6698</a>]</span>. The result is processed
-        based on its DNSSEC validation state (<span>[<a href="#RFC4035" class="cite xref">RFC4035</a>], <a href="https://rfc-editor.org/rfc/rfc4035#section-4.3" class="relref">Section 4.3</a></span>):<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+        validation locally <span>[<a href="#RFC6698" class="cite xref">RFC6698</a>]</span>. The result is
+        processed based on its DNSSEC validation state (<span>[<a href="#RFC4035" class="cite xref">RFC4035</a>], <a href="https://rfc-editor.org/rfc/rfc4035#section-4.3" class="relref">Section 4.3</a></span>):<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-6.2-2.1">
-            <strong>Secure</strong>: The response is used for
-          validation.<a href="#section-6.2-2.1" class="pilcrow">¶</a>
+            <strong>Secure</strong>: The response is used for validation.<a href="#section-6.2-2.1" class="pilcrow">¶</a>
 </li>
           <li class="normal ulEmpty" id="section-6.2-2.2">
-            <strong>Bogus</strong> or <strong>Indeterminate</strong>: The
-          response is rejected and validation is considered to have
-          failed.<a href="#section-6.2-2.2" class="pilcrow">¶</a>
+            <strong>Bogus</strong> or <strong>Indeterminate</strong>: The response is rejected and
+            validation is considered to have failed.<a href="#section-6.2-2.2" class="pilcrow">¶</a>
 </li>
           <li class="normal ulEmpty" id="section-6.2-2.3">
-            <strong>Insecure</strong>: The client <span class="bcp14">SHOULD</span>
-          retry the validation process using a different method, such as the
-          one in <a href="#validating-external" class="auto internal xref">Section 6.1</a>, to ensure
-          compatibility with unsigned names.<a href="#section-6.2-2.3" class="pilcrow">¶</a>
+            <strong>Insecure</strong>: The client <span class="bcp14">SHOULD</span> retry the validation
+            process using a different method, such as the one in <a href="#validating-external" class="auto internal xref">Section 6.1</a>, to ensure compatibility with
+            unsigned names.<a href="#section-6.2-2.3" class="pilcrow">¶</a>
 </li>
         </ul>
 </section>
@@ -1549,11 +1549,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-examples-of-split-horizon-d">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-examples-of-split-horizon-d" class="section-name selfRef">Examples of Split-Horizon DNS Configuration</a>
       </h2>
-<p id="section-7-1">Two examples are shown below. The first example shows a company with
-      an internal-only DNS server that claims the entire zone for that company
-      (e.g., <code>*.example.com</code>). In the second example, the internal
-      servers resolves only a subdomain of the company's zone (e.g.,
-      <code>*.internal.example.com</code>).<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">Two examples are shown below. The first example shows a company
+      with an internal-only DNS server that claims the entire zone for that
+      company (e.g., <code>*.example.com</code>). In the second example, the
+      internal servers resolves only a
+      subdomain of the company's zone (e.g., <code>*.internal.example.com</code>).<a href="#section-7-1" class="pilcrow">¶</a></p>
 <div id="internal-only">
 <section id="section-7.1">
         <h3 id="name-split-horizon-entire-zone">
@@ -1563,27 +1563,27 @@ svg :is([fill="white"], [fill^="#fff"]) {
         different version of its global domain on its internal network. Today,
         on the Internet it publishes two NS records, "ns1.example.com" and
         "ns2.example.com".<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">First, the host and network both need to support one of the
-        discovery mechanisms described in <a href="#learning" class="auto internal xref">Section 4</a>. <a href="#fig-learn" class="auto internal xref">Figure 1</a> shows discovery using DNR and PvD.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">First, the host and network both need to support one of the discovery
+        mechanisms described in <a href="#learning" class="auto internal xref">Section 4</a>. <a href="#fig-learn" class="auto internal xref">Figure 1</a>
+        shows discovery using DNR and PvD.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">Validation is then perfomed using either <span><a href="#example-verify-external" class="internal xref">an external resolver</a> (<a href="#example-verify-external" class="auto internal xref">Section 7.1.1</a>)</span> or <span><a href="#example-verify-dnssec" class="internal xref">DNSSEC</a> (<a href="#example-verify-dnssec" class="auto internal xref">Section 7.1.2</a>)</span>.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-7.1-4.1">
-            <strong>Steps 1-2</strong>: The client determines the network's
-          DNS server (ns1.example.com) and Provisioning Domain
-          (pvd.example.com) using <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>
-          and <span><a href="#RFC8801" class="internal xref">PvD</a> [<a href="#RFC8801" class="cite xref">RFC8801</a>]</span>, using one of DNR Router
-          Solicitation, DHCPv4, or DHCPv6.<a href="#section-7.1-4.1" class="pilcrow">¶</a>
+            <strong>Steps 1-2</strong>: The client determines the network's DNS
+            server (ns1.example.com) and Provisioning Domain (pvd.example.com)
+            using <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span> and <span><a href="#RFC8801" class="internal xref">PvD</a> [<a href="#RFC8801" class="cite xref">RFC8801</a>]</span>, using one of DNR Router Solicitation,
+            DHCPv4, or DHCPv6.<a href="#section-7.1-4.1" class="pilcrow">¶</a>
 </li>
           <li class="normal ulEmpty" id="section-7.1-4.2">
-            <strong>Step 3-5</strong>: The client connects to
-          ns1.example.com using an encrypted transport as indicated in <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, authenticating the server to
-          its name using TLS (<span>[<a href="#RFC8310" class="cite xref">RFC8310</a>], <a href="https://rfc-editor.org/rfc/rfc8310#section-8" class="relref">Section 8</a></span>), and sends it a query for the address of
-          <code>pvd.example.com</code>.<a href="#section-7.1-4.2" class="pilcrow">¶</a>
+            <strong>Step 3-5</strong>: The client connects to ns1.example.com
+            using an encrypted transport as indicated in <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, authenticating the server to
+            its name using TLS (<span>[<a href="#RFC8310" class="cite xref">RFC8310</a>], <a href="https://rfc-editor.org/rfc/rfc8310#section-8" class="relref">Section 8</a></span>), and
+            sends it a query for the address of <code>pvd.example.com</code>.<a href="#section-7.1-4.2" class="pilcrow">¶</a>
 </li>
           <li class="normal ulEmpty" id="section-7.1-4.3">
-            <p id="section-7.1-4.3.1"><strong>Steps 6-7</strong>: The client connects to the PvD
-            server, validates its certificate, and retrieves the provisioning
-            domain JSON information indicated by the associated PvD. The PvD
+            <p id="section-7.1-4.3.1"><strong>Steps 6-7</strong>: The client connects to the PvD server,
+            validates its certificate, and retrieves the provisioning domain
+            JSON information indicated by the associated PvD. The PvD
             contains:<a href="#section-7.1-4.3.1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7.1-4.3.2">
 <pre>  {
@@ -1593,8 +1593,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
     "dnsZones": ["example.com"]
   }</pre><a href="#section-7.1-4.3.2" class="pilcrow">¶</a>
 </div>
-<p id="section-7.1-4.3.3">The JSON keys "identifier", "expires", and "prefixes" are
-            defined in <span>[<a href="#RFC8801" class="cite xref">RFC8801</a>]</span>.<a href="#section-7.1-4.3.3" class="pilcrow">¶</a></p>
+<p id="section-7.1-4.3.3">The JSON keys "identifier", "expires", and "prefixes"
+            are defined in <span>[<a href="#RFC8801" class="cite xref">RFC8801</a>]</span>.<a href="#section-7.1-4.3.3" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <span id="name-learning-local-claims-of-dn"></span><div id="fig-learn">
@@ -1654,19 +1654,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-7.1.1-2.1">
               <strong>Steps 1-2</strong>: The client uses an encrypted DNS
-            connection to an external resolver (e.g., 1.1.1.1) to issue NS
-            queries for the domains in dnsZones. The NS lookup for
-            "example.com" will return "ns1.example.com" and
-            "ns2.example.com".<a href="#section-7.1.1-2.1" class="pilcrow">¶</a>
+              connection to an external resolver (e.g., 1.1.1.1) to issue NS
+              queries for the domains in dnsZones. The NS lookup for
+              "example.com" will return "ns1.example.com" and
+              "ns2.example.com".<a href="#section-7.1.1-2.1" class="pilcrow">¶</a>
 </li>
             <li class="normal ulEmpty" id="section-7.1.1-2.2">
               <strong>Step 3</strong>: The network-provided DNS servers are
-            listed in the NS record for <code>example.com</code>, which was
-            retrieved from an external resolver over a secure transport, so
-            these ADNs are authorized. When the client connects using an
-            encrypted transport as indicated in <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, it will authenticate the
-            server to its name using TLS (<span>[<a href="#RFC8310" class="cite xref">RFC8310</a>], <a href="https://rfc-editor.org/rfc/rfc8310#section-8" class="relref">Section 8</a></span>), and send queries to resolve any
-            names that fall within the dnsZones from PvD.<a href="#section-7.1.1-2.2" class="pilcrow">¶</a>
+              listed in the NS record for <code>example.com</code>, which was
+              retrieved from an external resolver over a secure transport,
+              so these ADNs are authorized. When the client connects using an
+              encrypted transport as indicated in <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, it will authenticate
+              the server to its name using TLS (<span>[<a href="#RFC8310" class="cite xref">RFC8310</a>], <a href="https://rfc-editor.org/rfc/rfc8310#section-8" class="relref">Section 8</a></span>), and send queries to resolve
+              any names that fall within the dnsZones from PvD.<a href="#section-7.1.1-2.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <span id="name-verifying-claims-using-an-e"></span><figure id="figure-2">
@@ -1714,22 +1714,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
           claims of DNS authority using DNSSEC.<a href="#section-7.1.2-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-7.1.2-2.1">
-              <strong>Steps 1-2</strong>: The DNSSEC-validating client
-            queries the network encrypted resolver to issue NS queries for the
-            domains in dnsZones. The NS lookup for "example.com" will return a
-            signed response containing "ns1.example.com" and
-            "ns2.example.com". The client then performs full DNSSEC validation
-            locally.<a href="#section-7.1.2-2.1" class="pilcrow">¶</a>
+              <strong>Steps 1-2</strong>: The DNSSEC-validating client queries
+              the network encrypted resolver to issue NS queries for the
+              domains in dnsZones. The NS lookup for "example.com" will return
+              a signed response containing "ns1.example.com" and
+              "ns2.example.com". The client then performs full DNSSEC
+              validation locally.<a href="#section-7.1.2-2.1" class="pilcrow">¶</a>
 </li>
             <li class="normal ulEmpty" id="section-7.1.2-2.2">
-              <strong>Step 3</strong>: The DNSSEC validation is successful
-            and the network-provided DNS servers are listed in the signed NS
-            record for <code>example.com</code>, so these ADNs are authorized.
-            When the client connects using an encrypted transport as indicated
-            in <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, it will
-            authenticate the server to its name using TLS (<span>[<a href="#RFC8310" class="cite xref">RFC8310</a>], <a href="https://rfc-editor.org/rfc/rfc8310#section-8" class="relref">Section 8</a></span>), and send
-            queries to resolve any names that fall within the dnsZones from
-            PvD.<a href="#section-7.1.2-2.2" class="pilcrow">¶</a>
+              <strong>Step 3</strong>: The DNSSEC validation is successful and
+              the network-provided DNS servers are listed in the signed NS
+              record for <code>example.com</code>, so these ADNs are authorized.
+              When the client connects using an encrypted transport as indicated
+              in <span><a href="#I-D.ietf-add-dnr" class="internal xref">DNR</a> [<a href="#I-D.ietf-add-dnr" class="cite xref">I-D.ietf-add-dnr</a>]</span>, it will authenticate
+              the server to its name using TLS (<span>[<a href="#RFC8310" class="cite xref">RFC8310</a>], <a href="https://rfc-editor.org/rfc/rfc8310#section-8" class="relref">Section 8</a></span>), and send queries to resolve
+              any names that fall within the dnsZones from PvD.<a href="#section-7.1.2-2.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <span id="name-verifying-claims-using-dnss"></span><figure id="figure-3">
@@ -1773,11 +1772,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h3>
 <p id="section-7.2-1">In many split-horizon deployments, all non-public domain names are
         placed in a separate child zone (e.g., <code>internal.example.com</code>).
-        In this configuration, the message flow is similar to <a href="#internal-only" class="auto internal xref">Section 7.1</a>, except that queries for hosts not within
-        the subdomain (e.g., <code>www.example.com</code>) are sent to the
+        In this configuration, the message flow is similar to <a href="#internal-only" class="auto internal xref">Section 7.1</a>, except that queries for hosts not within the
+        subdomain (e.g., <code>www.example.com</code>) are sent to the
         external resolver rather than resolver for internal.example.com.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">As in <a href="#internal-only" class="auto internal xref">Section 7.1</a>, the internal DNS server will
-        need a certificate signed by a CA trusted by the client.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">As in <a href="#internal-only" class="auto internal xref">Section 7.1</a>, the internal DNS
+        server will need a certificate signed by a CA trusted by the
+        client.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
 </section>
 </section>
 <div id="vpn">
@@ -1799,28 +1799,25 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-9-1">This specification does not alter DNSSEC validation behaviour. To
-      ensure compatibility with validating clients, network operators
-      <span class="bcp14">MUST</span> ensure that names under the split-horizon are
-      correctly signed or place them in an unsigned zone.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">If an internal zone name (e.g., <code>internal.example.com</code>) is
-      used with this specification and a public certificate is obtained for
-      validation, that internal zone name will exist in Certificate
-      Transparency logs <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>. In order to not leak the
-      internal domains to an external resolver, the internal domains can be
-      kept in a child zone of the local domain hints advertised by the
-      network. For example, if the PvD "dnsZones" entry is
-      "internal.example.com" and the network-provided DNS resolver
-      is "ns1.internal.example.com", the network operator can
-      structure the internal domain names as "private1.internal.example.com",
-      "private2.internal.example.com", etc. The network-designated resolver
-      will be used to resolve the subdomains of the local domain hint
-      "*.internal.example.com". Further, adversaries that monitor
-      a network such as through passive monitoring or active probing of
-      protocols, such as DHCP will only learn the local domain hints but not
-      learn the labels below internal.example.com. However, security by
-      obscurity may not maintain or increase the security of the internal
-      domain names, as they may be leaked in various other ways (e.g., browser
-      reload).<a href="#section-9-2" class="pilcrow">¶</a></p>
+      ensure compatibility with validating clients, network operators <span class="bcp14">MUST</span>
+      ensure that names under the split-horizon are correctly signed or place
+      them in an unsigned zone.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-2">If an internal zone name (e.g., <code>internal.example.com</code>) is used with
+      this specification and a public certificate is obtained
+      for validation, that internal zone name will exist in Certificate Transparency
+      logs <span>[<a href="#RFC9162" class="cite xref">RFC9162</a>]</span>. In order to not leak the internal domains to
+      an external resolver, the internal domains can be kept in a child zone of the
+      local domain hints advertised by the network. For example, if the PvD "dnsZones"
+      entry is "internal.example.com" and the network-provided DNS resolver is
+      "ns1.internal.example.com", the network operator can structure the internal
+      domain names as "private1.internal.example.com", "private2.internal.example.com",
+      etc. The network-designated resolver will be used to resolve the subdomains of
+      the local domain hint "*.internal.example.com". Further, adversaries that monitor
+      a network such as through passive monitoring or active probing of protocols,
+      such as DHCP will only learn the local domain hints but not learn the labels below internal.example.com.
+      However, security by obscurity may not maintain or increase the security of the
+      internal domain names, as they may be leaked in various other ways
+      (e.g., browser reload).<a href="#section-9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="IANA">
