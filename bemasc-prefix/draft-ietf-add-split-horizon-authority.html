@@ -1416,7 +1416,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             the named local resolver (potentially including the entire parent
             zone).<a href="#section-5-3.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-3.4">An NSEC3 Hash Algorithm.<a href="#section-5-3.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-3.4">A ZONEMD Hash Algorithm (<span><a href="https://rfc-editor.org/rfc/rfc8976#section-5.3" class="relref">Section 5.3</a> of [<a href="#RFC8976" class="cite xref">RFC8976</a>]</span>).<a href="#section-5-3.4" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-5-3.5">A high-entropy salt, up to 255 octets.<a href="#section-5-3.5" class="pilcrow">¶</a>
 </li>
@@ -1429,7 +1429,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-5-5">To establish its authority, the network MUST provide each Authorization
       Claim to the parent zone operator.  If the contents are approved, the
       parent zone operator computes a "Verification Token" according to the
-      following procedure based on <span><a href="https://rfc-editor.org/rfc/rfc5155#section-5" class="relref">Section 5</a> of [<a href="#RFC5155" class="cite xref">RFC5155</a>]</span>:<a href="#section-5-5" class="pilcrow">¶</a></p>
+      following procedure:<a href="#section-5-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5-6">
         <li id="section-5-6.1">Convert all subdomains into canonical form.<a href="#section-5-6.1" class="pilcrow">¶</a>
 </li>
@@ -1440,7 +1440,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
         <li id="section-5-6.4">Let len($SALT) be the number of octets of salt, as a single octet.<a href="#section-5-6.4" class="pilcrow">¶</a>
 </li>
-        <li id="section-5-6.5">Let $TOKEN = HASH(len($SALT) || $SALT || $X).<a href="#section-5-6.5" class="pilcrow">¶</a>
+        <li id="section-5-6.5">Let $TOKEN = hash(len($SALT) || $SALT || $X).<a href="#section-5-6.5" class="pilcrow">¶</a>
 </li>
       </ol>
 <p id="section-5-7">The zone operator then publishes a "Verification Record" with the
@@ -1452,7 +1452,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <li class="normal" id="section-5-8.2">Owner Name = Concatenation of the ADN, "_splitdns-challenge", and
             the parent zone name.<a href="#section-5-8.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-8.3">Contents = "token=base64url($TOKEN)".<a href="#section-5-8.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-8.3">Contents = "token=base64url($TOKEN)" (without padding)<a href="#section-5-8.3" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-5-9">By publishing this record, the parent zone authorizes the local
@@ -1470,7 +1470,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
           <li class="normal" id="section-5.1-2.3">Subdomains = "payroll.parent.example",
               "secret.project.parent.example"<a href="#section-5.1-2.3" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-5.1-2.4">Hash Algorithm = SHA-1<a href="#section-5.1-2.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.1-2.4">Hash Algorithm = SHA-384<a href="#section-5.1-2.4" class="pilcrow">¶</a>
 </li>
           <li class="normal" id="section-5.1-2.5">Salt = "example salt bytes (should be random)"<a href="#section-5.1-2.5" class="pilcrow">¶</a>
 </li>
@@ -1480,7 +1480,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
           <div class="alignLeft art-text artwork" id="section-5.1-4.1">
 <pre>
 resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
-"token=kfHudyzZkdQccYVLV0zWsY4ETZUK"
+"token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD-Djetw2MCg"
 </pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a></figcaption></figure>
@@ -1500,7 +1500,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
 <p id="section-5.2.1-1">
             In DHCP, each Authorization Claim is encoded as a DHCP Authentication
             Option <span>[<a href="#RFC3118" class="cite xref">RFC3118</a>]</span>, using the Protocol value $TBD1, "Split
-            DNS Authentication".  The Algorithm field provides the NSEC3 Hash Algorithm,
+            DNS Authentication".  The Algorithm field provides the ZONEMD Hash Algorithm,
             represented by its registered Value.  The Authentication Information
             <span class="bcp14">MUST</span> contain the following information, concatenated:<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.2.1-2">
@@ -1532,7 +1532,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
             <li class="normal" id="section-5.2.2-2.3">"subdomains": An array containing the claimed subdomains, as
                 dot-separated names with the parent suffix already removed.<a href="#section-5.2.2-2.3" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-5.2.2-2.4">"algorithm": The hash algorithm, identified by its Description string.<a href="#section-5.2.2-2.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.2.2-2.4">"algorithm": The hash algorithm, identified by its registered Mnemonic.<a href="#section-5.2.2-2.4" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-5.2.2-2.5">"salt": The salt, encoded in base64url.<a href="#section-5.2.2-2.5" class="pilcrow">¶</a>
 </li>
@@ -1679,7 +1679,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
       "resolver": "dns.example.net",
       "parent": "example.com",
       "subdomains": [""],
-      "algorithm": "SHA-1",
+      "algorithm": "SHA384",
       "salt": "abc...123"
     }]
   }</pre><a href="#section-8.1-4.3.2" class="pilcrow">¶</a>
@@ -1960,10 +1960,6 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
         <dd>
 <span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"Protocol Modifications for the DNS Security Extensions"</span>, <span class="seriesInfo">RFC 4035</span>, <span class="seriesInfo">DOI 10.17487/RFC4035</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4035">https://www.rfc-editor.org/info/rfc4035</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC5155">[RFC5155]</dt>
-        <dd>
-<span class="refAuthor">Laurie, B.</span>, <span class="refAuthor">Sisson, G.</span>, <span class="refAuthor">Arends, R.</span>, and <span class="refAuthor">D. Blacka</span>, <span class="refTitle">"DNS Security (DNSSEC) Hashed Authenticated Denial of Existence"</span>, <span class="seriesInfo">RFC 5155</span>, <span class="seriesInfo">DOI 10.17487/RFC5155</span>, <time datetime="2008-03" class="refDate">March 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5155">https://www.rfc-editor.org/info/rfc5155</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6698">[RFC6698]</dt>
         <dd>
 <span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">J. Schlyter</span>, <span class="refTitle">"The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA"</span>, <span class="seriesInfo">RFC 6698</span>, <span class="seriesInfo">DOI 10.17487/RFC6698</span>, <time datetime="2012-08" class="refDate">August 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6698">https://www.rfc-editor.org/info/rfc6698</a>&gt;</span>. </dd>
@@ -1977,8 +1973,12 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8801">[RFC8801]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Pfister, P.</span>, <span class="refAuthor">Vyncke, Ã.</span>, <span class="refAuthor">Pauly, T.</span>, <span class="refAuthor">Schinazi, D.</span>, and <span class="refAuthor">W. Shao</span>, <span class="refTitle">"Discovering Provisioning Domain Names and Data"</span>, <span class="seriesInfo">RFC 8801</span>, <span class="seriesInfo">DOI 10.17487/RFC8801</span>, <time datetime="2020-07" class="refDate">July 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8801">https://www.rfc-editor.org/info/rfc8801</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8976">[RFC8976]</dt>
+      <dd>
+<span class="refAuthor">Wessels, D.</span>, <span class="refAuthor">Barber, P.</span>, <span class="refAuthor">Weinberg, M.</span>, <span class="refAuthor">Kumari, W.</span>, and <span class="refAuthor">W. Hardaker</span>, <span class="refTitle">"Message Digest for DNS Zones"</span>, <span class="seriesInfo">RFC 8976</span>, <span class="seriesInfo">DOI 10.17487/RFC8976</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8976">https://www.rfc-editor.org/info/rfc8976</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

@@ -240,7 +240,7 @@ Table of Contents
       named local resolver (potentially including the entire parent
       zone).
 
-   *  An NSEC3 Hash Algorithm.
+   *  A ZONEMD Hash Algorithm (Section 5.3 of [RFC8976]).
 
    *  A high-entropy salt, up to 255 octets.
 
@@ -253,7 +253,7 @@ Table of Contents
    To establish its authority, the network MUST provide each
    Authorization Claim to the parent zone operator.  If the contents are
    approved, the parent zone operator computes a "Verification Token"
-   according to the following procedure based on Section 5 of [RFC5155]:
+   according to the following procedure:
 
    1.  Convert all subdomains into canonical form.
 
@@ -265,7 +265,7 @@ Table of Contents
    4.  Let len($SALT) be the number of octets of salt, as a single
        octet.
 
-   5.  Let $TOKEN = HASH(len($SALT) || $SALT || $X).
+   5.  Let $TOKEN = hash(len($SALT) || $SALT || $X).
 
    The zone operator then publishes a "Verification Record" with the
    following structure, following the advice of
@@ -276,7 +276,7 @@ Table of Contents
    *  Owner Name = Concatenation of the ADN, "_splitdns-challenge", and
       the parent zone name.
 
-   *  Contents = "token=base64url($TOKEN)".
+   *  Contents = "token=base64url($TOKEN)" (without padding)
 
    By publishing this record, the parent zone authorizes the local
    encrypted resolver to serve these subdomains authoritatively.
@@ -292,17 +292,17 @@ Table of Contents
    *  Subdomains = "payroll.parent.example",
       "secret.project.parent.example"
 
-   *  Hash Algorithm = SHA-1
+   *  Hash Algorithm = SHA-384
 
    *  Salt = "example salt bytes (should be random)"
 
    To approve this claim, the zone operator would publish the following
    record:
 
-  resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
-  "token=kfHudyzZkdQccYVLV0zWsY4ETZUK"
+resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
+"token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD-Djetw2MCg"
 
-                                 Figure 1
+                               Figure 1
 
 5.2.  Conveying Authorization Claims
 
@@ -315,7 +315,7 @@ Table of Contents
 
    In DHCP, each Authorization Claim is encoded as a DHCP Authentication
    Option [RFC3118], using the Protocol value $TBD1, "Split DNS
-   Authentication".  The Algorithm field provides the NSEC3 Hash
+   Authentication".  The Algorithm field provides the ZONEMD Hash
    Algorithm, represented by its registered Value.  The Authentication
    Information MUST contain the following information, concatenated:
 
@@ -343,8 +343,8 @@ Table of Contents
    *  "subdomains": An array containing the claimed subdomains, as dot-
       separated names with the parent suffix already removed.
 
-   *  "algorithm": The hash algorithm, identified by its Description
-      string.
+   *  "algorithm": The hash algorithm, identified by its registered
+      Mnemonic.
 
    *  "salt": The salt, encoded in base64url.
 
@@ -468,7 +468,7 @@ Table of Contents
             "resolver": "dns.example.net",
             "parent": "example.com",
             "subdomains": [""],
-            "algorithm": "SHA-1",
+            "algorithm": "SHA384",
             "salt": "abc...123"
           }]
         }
@@ -707,11 +707,6 @@ Table of Contents
               Extensions", RFC 4035, DOI 10.17487/RFC4035, March 2005,
               <https://www.rfc-editor.org/info/rfc4035>.
 
-   [RFC5155]  Laurie, B., Sisson, G., Arends, R., and D. Blacka, "DNS
-              Security (DNSSEC) Hashed Authenticated Denial of
-              Existence", RFC 5155, DOI 10.17487/RFC5155, March 2008,
-              <https://www.rfc-editor.org/info/rfc5155>.
-
    [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
               of Named Entities (DANE) Transport Layer Security (TLS)
               Protocol: TLSA", RFC 6698, DOI 10.17487/RFC6698, August
@@ -729,6 +724,11 @@ Table of Contents
               Shao, "Discovering Provisioning Domain Names and Data",
               RFC 8801, DOI 10.17487/RFC8801, July 2020,
               <https://www.rfc-editor.org/info/rfc8801>.
+
+   [RFC8976]  Wessels, D., Barber, P., Weinberg, M., Kumari, W., and W.
+              Hardaker, "Message Digest for DNS Zones", RFC 8976,
+              DOI 10.17487/RFC8976, February 2021,
+              <https://www.rfc-editor.org/info/rfc8976>.
 
 13.2.  Informative References
 
