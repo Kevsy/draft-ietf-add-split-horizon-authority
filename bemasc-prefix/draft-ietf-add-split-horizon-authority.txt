@@ -357,10 +357,10 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
    authoritative for the claimed subdomains.  Clients MUST ignore any
    unrecognized keys in the Verification Record.
 
-   Each validation of authority applies only to a specific Authorization
-   Domain Name.  If a network offers multiple encrypted resolvers, each
-   claimed subdomain may be authorized for a distinct subset of the
-   network-provided resolvers.
+   Each validation of authority applies only to a specific
+   Authentication Domain Name.  If a network offers multiple encrypted
+   resolvers, each claimed subdomain may be authorized for a distinct
+   subset of the network-provided resolvers.
 
    A zone is termed a "Validated Split-Horizon zone" after successful
    validation using a "tamperproof" DNS resolution method, i.e. a method
