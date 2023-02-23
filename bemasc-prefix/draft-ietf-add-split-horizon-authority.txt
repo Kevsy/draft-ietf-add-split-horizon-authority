@@ -5,12 +5,12 @@
 ADD                                                             T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                                 D. Wing
-Expires: 26 August 2023                                           Citrix
+Expires: 27 August 2023                                           Citrix
                                                                 K. Smith
                                                                 Vodafone
                                                              B. Schwartz
                                                                   Google
-                                                        22 February 2023
+                                                        23 February 2023
 
 
      Establishing Local DNS Authority in Split-Horizon Environments
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 August 2023.
+   This Internet-Draft will expire on 27 August 2023.
 
 Copyright Notice
 
@@ -242,7 +242,7 @@ Table of Contents
 
    *  An NSEC3 Hash Algorithm.
 
-   *  A high-entropy salt.
+   *  A high-entropy salt, up to 255 octets.
 
    If the local encrypted resolver is identified by name (e.g., DNR),
    that identifying name MUST be the one used in any corresponding
@@ -262,7 +262,10 @@ Table of Contents
 
    3.  Let $X be the concatenation of the resulting pseudo-FQDNs.
 
-   4.  Let $TOKEN = IH($SALT, $X, 0)
+   4.  Let len($SALT) be the number of octets of salt, as a single
+       octet.
+
+   5.  Let $TOKEN = HASH(len($SALT) || $SALT || $X).
 
    The zone operator then publishes a "Verification Record" with the
    following structure, following the advice of
@@ -316,13 +319,13 @@ Table of Contents
    Algorithm, represented by its registered Value.  The Authentication
    Information MUST contain the following information, concatenated:
 
-   1.  A one-octet "salt length" field.
+   1.  The ADN in canonical form.
 
-   2.  The salt value.
+   2.  The parent name in canonical form.
 
-   3.  The ADN in canonical form.
+   3.  A one-octet "salt length" field.
 
-   4.  The parent name in canonical form.
+   4.  The salt value.
 
    5.  The $X value defined in Section 5.
 
