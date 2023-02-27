@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 28 August 2023</td>
+<td class="center">Expires 31 August 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-add-split-horizon-authority-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-24" class="published">24 February 2023</time>
+<time datetime="2023-02-27" class="published">27 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-28">28 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-08-31">31 August 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1138,7 +1138,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1310,10 +1310,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
       use this protocol to confirm that a local domain hint was authorized by
       the domain (<a href="#validating" class="auto internal xref">Section 6</a>), which might influence
       its processing of that hint.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">This specification relies on securely identified local DNS servers
-      and globally valid NS records. Use of this specification is therefore
+<p id="section-1-7">This specification relies on securely identified local DNS servers,
+      and checks each local domain hint against a globally valid parent zone.
+      Use of this specification is therefore
       limited to servers that support authenticated encryption and
-      split-horizon DNS names that are properly rooted in the global DNS.<a href="#section-1-7" class="pilcrow">¶</a></p>
+      split-horizon DNS names that are rooted in the global DNS.<a href="#section-1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="notation">
@@ -1412,7 +1413,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
         <li class="normal" id="section-5-3.2">The DNS name of the authorizing parent zone.<a href="#section-5-3.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-5-3.3">A list of subdomains of this parent zone that are claimed by
+        <li class="normal" id="section-5-3.3">A set of subdomains of this parent zone that are claimed by
             the named local resolver (potentially including the entire parent
             zone).<a href="#section-5-3.3" class="pilcrow">¶</a>
 </li>
@@ -1431,7 +1432,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
       parent zone operator computes a "Verification Token" according to the
       following procedure:<a href="#section-5-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5-6">
-        <li id="section-5-6.1">Convert all subdomains into canonical form.<a href="#section-5-6.1" class="pilcrow">¶</a>
+        <li id="section-5-6.1">Convert all subdomains into canonical form and sort them in canonical
+            order (<span><a href="https://rfc-editor.org/rfc/rfc4034#section-6" class="relref">Section 6</a> of [<a href="#RFC4034" class="cite xref">RFC4034</a>]</span>).<a href="#section-5-6.1" class="pilcrow">¶</a>
 </li>
         <li id="section-5-6.2">Replace the suffix corresponding to the parent zone with a zero
             byte.<a href="#section-5-6.2" class="pilcrow">¶</a>
@@ -1501,7 +1503,8 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
             In DHCP, each Authorization Claim is encoded as a DHCP Authentication
             Option <span>[<a href="#RFC3118" class="cite xref">RFC3118</a>]</span>, using the Protocol value $TBD1, "Split
             DNS Authentication".  The Algorithm field provides the ZONEMD Hash Algorithm,
-            represented by its registered Value.  The Authentication Information
+            represented by its registered Value.  The RDM value
+            <span class="bcp14">MUST</span> be 0x00. The Authentication Information
             <span class="bcp14">MUST</span> contain the following information, concatenated:<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.2.1-2">
             <li id="section-5.2.1-2.1">The ADN in canonical form.<a href="#section-5.2.1-2.1" class="pilcrow">¶</a>
@@ -1530,9 +1533,11 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
             <li class="normal" id="section-5.2.2-2.2">"parent": The parent zone name as a dot-separated name.<a href="#section-5.2.2-2.2" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-5.2.2-2.3">"subdomains": An array containing the claimed subdomains, as
-                dot-separated names with the parent suffix already removed.<a href="#section-5.2.2-2.3" class="pilcrow">¶</a>
+                dot-separated names with the parent suffix already removed, in
+                canonical order.<a href="#section-5.2.2-2.3" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-5.2.2-2.4">"algorithm": The hash algorithm, identified by its registered Mnemonic.<a href="#section-5.2.2-2.4" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.2.2-2.4">"algorithm": The hash algorithm, identified by its IANA-registered
+                Mnemonic.<a href="#section-5.2.2-2.4" class="pilcrow">¶</a>
 </li>
             <li class="normal" id="section-5.2.2-2.5">"salt": The salt, encoded in base64url.<a href="#section-5.2.2-2.5" class="pilcrow">¶</a>
 </li>
@@ -1677,9 +1682,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-split-horizon-entire-zone" class="section-name selfRef">Split-Horizon Entire Zone</a>
         </h3>
 <p id="section-8.1-1">Consider an organization that operates "example.com", and runs a
-        different version of its global domain on its internal network. Today,
-        on the Internet it publishes two NS records, "ns1.example.com" and
-        "ns2.example.com".<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+        different version of its global domain on its internal network.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <p id="section-8.1-2">First, the host and network both need to support one of the discovery
         mechanisms described in <a href="#establishing" class="auto internal xref">Section 5</a>. <a href="#fig-learn" class="auto internal xref">Figure 3</a>
         shows discovery using DNR and PvD.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
@@ -1988,6 +1991,10 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
         <dd>
 <span class="refAuthor">Droms, R., Ed.</span> and <span class="refAuthor">W. Arbaugh, Ed.</span>, <span class="refTitle">"Authentication for DHCP Messages"</span>, <span class="seriesInfo">RFC 3118</span>, <span class="seriesInfo">DOI 10.17487/RFC3118</span>, <time datetime="2001-06" class="refDate">June 2001</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3118">https://www.rfc-editor.org/info/rfc3118</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4034">[RFC4034]</dt>
+        <dd>
+<span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"Resource Records for the DNS Security Extensions"</span>, <span class="seriesInfo">RFC 4034</span>, <span class="seriesInfo">DOI 10.17487/RFC4034</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4034">https://www.rfc-editor.org/info/rfc4034</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4035">[RFC4035]</dt>
         <dd>
 <span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"Protocol Modifications for the DNS Security Extensions"</span>, <span class="seriesInfo">RFC 4035</span>, <span class="seriesInfo">DOI 10.17487/RFC4035</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4035">https://www.rfc-editor.org/info/rfc4035</a>&gt;</span>. </dd>
@@ -2025,7 +2032,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
 <dd class="break"></dd>
 <dt id="I-D.ietf-ipsecme-add-ike">[I-D.ietf-ipsecme-add-ike]</dt>
         <dd>
-<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Wing, D.</span>, and <span class="refAuthor">V. Smyslov</span>, <span class="refTitle">"Internet Key Exchange Protocol Version 2 (IKEv2) Configuration for Encrypted DNS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ipsecme-add-ike-08</span>, <time datetime="2023-01-31" class="refDate">31 January 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ipsecme-add-ike-08">https://datatracker.ietf.org/doc/html/draft-ietf-ipsecme-add-ike-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Reddy, T.</span>, <span class="refAuthor">Wing, D.</span>, and <span class="refAuthor">V. Smyslov</span>, <span class="refTitle">"Internet Key Exchange Protocol Version 2 (IKEv2) Configuration for Encrypted DNS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ipsecme-add-ike-09</span>, <time datetime="2023-02-27" class="refDate">27 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/api/v1/doc/document/draft-ietf-ipsecme-add-ike/">https://datatracker.ietf.org/api/v1/doc/document/draft-ietf-ipsecme-add-ike/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2132">[RFC2132]</dt>
         <dd>

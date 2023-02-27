@@ -5,12 +5,12 @@
 ADD                                                             T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                                 D. Wing
-Expires: 28 August 2023                                           Citrix
+Expires: 31 August 2023                                           Citrix
                                                                 K. Smith
                                                                 Vodafone
                                                              B. Schwartz
                                                                   Google
-                                                        24 February 2023
+                                                        27 February 2023
 
 
      Establishing Local DNS Authority in Split-Horizon Environments
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2023.
+   This Internet-Draft will expire on 31 August 2023.
 
 Copyright Notice
 
@@ -151,11 +151,11 @@ Table of Contents
    confirm that a local domain hint was authorized by the domain
    (Section 6), which might influence its processing of that hint.
 
-   This specification relies on securely identified local DNS servers
-   and globally valid NS records.  Use of this specification is
-   therefore limited to servers that support authenticated encryption
-   and split-horizon DNS names that are properly rooted in the global
-   DNS.
+   This specification relies on securely identified local DNS servers,
+   and checks each local domain hint against a globally valid parent
+   zone.  Use of this specification is therefore limited to servers that
+   support authenticated encryption and split-horizon DNS names that are
+   rooted in the global DNS.
 
 2.  Terminology
 
@@ -236,7 +236,7 @@ Table of Contents
 
    *  The DNS name of the authorizing parent zone.
 
-   *  A list of subdomains of this parent zone that are claimed by the
+   *  A set of subdomains of this parent zone that are claimed by the
       named local resolver (potentially including the entire parent
       zone).
 
@@ -255,7 +255,8 @@ Table of Contents
    approved, the parent zone operator computes a "Verification Token"
    according to the following procedure:
 
-   1.  Convert all subdomains into canonical form.
+   1.  Convert all subdomains into canonical form and sort them in
+       canonical order (Section 6 of [RFC4034]).
 
    2.  Replace the suffix corresponding to the parent zone with a zero
        byte.
@@ -316,8 +317,9 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
    In DHCP, each Authorization Claim is encoded as a DHCP Authentication
    Option [RFC3118], using the Protocol value $TBD1, "Split DNS
    Authentication".  The Algorithm field provides the ZONEMD Hash
-   Algorithm, represented by its registered Value.  The Authentication
-   Information MUST contain the following information, concatenated:
+   Algorithm, represented by its registered Value.  The RDM value MUST
+   be 0x00.  The Authentication Information MUST contain the following
+   information, concatenated:
 
    1.  The ADN in canonical form.
 
@@ -341,9 +343,10 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
    *  "parent": The parent zone name as a dot-separated name.
 
    *  "subdomains": An array containing the claimed subdomains, as dot-
-      separated names with the parent suffix already removed.
+      separated names with the parent suffix already removed, in
+      canonical order.
 
-   *  "algorithm": The hash algorithm, identified by its registered
+   *  "algorithm": The hash algorithm, identified by its IANA-registered
       Mnemonic.
 
    *  "salt": The salt, encoded in base64url.
@@ -462,8 +465,6 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
 
    Consider an organization that operates "example.com", and runs a
    different version of its global domain on its internal network.
-   Today, on the Internet it publishes two NS records, "ns1.example.com"
-   and "ns2.example.com".
 
    First, the host and network both need to support one of the discovery
    mechanisms described in Section 5.  Figure 3 shows discovery using
@@ -729,6 +730,11 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
               DHCP Messages", RFC 3118, DOI 10.17487/RFC3118, June 2001,
               <https://www.rfc-editor.org/info/rfc3118>.
 
+   [RFC4034]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
+              Rose, "Resource Records for the DNS Security Extensions",
+              RFC 4034, DOI 10.17487/RFC4034, March 2005,
+              <https://www.rfc-editor.org/info/rfc4034>.
+
    [RFC4035]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
               Rose, "Protocol Modifications for the DNS Security
               Extensions", RFC 4035, DOI 10.17487/RFC4035, March 2005,
@@ -768,12 +774,12 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
               add-dnr-13>.
 
    [I-D.ietf-ipsecme-add-ike]
-              Boucadair, M., Reddy.K, T., Wing, D., and V. Smyslov,
+              Boucadair, M., Reddy, T., Wing, D., and V. Smyslov,
               "Internet Key Exchange Protocol Version 2 (IKEv2)
               Configuration for Encrypted DNS", Work in Progress,
-              Internet-Draft, draft-ietf-ipsecme-add-ike-08, 31 January
-              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              ipsecme-add-ike-08>.
+              Internet-Draft, draft-ietf-ipsecme-add-ike-09, 27 February
+              2023, <https://datatracker.ietf.org/api/v1/doc/document/
+              draft-ietf-ipsecme-add-ike/>.
 
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
               Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
