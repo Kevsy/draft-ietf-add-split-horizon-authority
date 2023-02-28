@@ -5,12 +5,12 @@
 ADD                                                             T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                                 D. Wing
-Expires: 31 August 2023                                           Citrix
+Expires: 1 September 2023                                         Citrix
                                                                 K. Smith
                                                                 Vodafone
                                                              B. Schwartz
                                                                   Google
-                                                        27 February 2023
+                                                        28 February 2023
 
 
      Establishing Local DNS Authority in Split-Horizon Environments
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2023.
+   This Internet-Draft will expire on 1 September 2023.
 
 Copyright Notice
 
@@ -91,6 +91,9 @@ Table of Contents
    9.  Validation with IKEv2
    10. Security Considerations
    11. IANA Considerations
+     11.1.  DHCP Split DNS Authentication Algorithm
+     11.2.  Provisioning Domains Split DNS Additional Information
+     11.3.  DNS Underscore Name
    12. Acknowledgements
    13. References
      13.1.  Normative References
@@ -333,10 +336,10 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
 
 5.2.2.  Using Provisioning Domains
 
-   When using Provisioning Domains, the Authorization Claims are
-   represented by the PvD Additional Information key $TBD2, whose value
-   is a JSON Array.  Each entry in the array MUST be a JSON object with
-   the following structure:
+   When using Provisioning Domains [RFC8801], the Authorization Claims
+   are represented by the PvD Additional Information key
+   "splitDnsClaims", whose value is a JSON Array.  Each entry in the
+   array MUST be a JSON object with the following structure:
 
    *  "resolver": The ADN as a dot-separated name.
 
@@ -690,7 +693,53 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
 
 11.  IANA Considerations
 
-   TODO: New DHCP Auth Algorithm, PvD key, and underscore registry name.
+11.1.  DHCP Split DNS Authentication Algorithm
+
+   IANA is requested to add the following entry to the "Protocol Name
+   Space Values" registry on the "Dynamic Host Configuration Protocol
+   (DHCP) Authentication Option Name Spaces" page:
+
+   *  Value: $TBD1
+
+   *  Description: Split DNS
+
+   *  Reference: (This Document)
+
+11.2.  Provisioning Domains Split DNS Additional Information
+
+   IANA is requested to add the following entry to the "Additional
+   Information PvD Keys" registry on the "Provisioning Domains (PvDs)"
+   page:
+
+   *  JSON key: "splitDnsClaims"
+
+   *  Description: "Verifiable locally served domains"
+
+   *  Type: Array of Objects
+
+   *  Example:
+
+      [{
+        "resolver": "dns.example.net",
+        "parent": "example.com",
+        "subdomains": ["sub"],
+        "algorithm": "SHA384",
+        "salt": "abc...123"
+      }]
+
+   *  Reference: (This document)
+
+11.3.  DNS Underscore Name
+
+   IANA is requested to add the following entry to the "Underscored and
+   Globally Scoped DNS Node Names" registry on the "Domain Name System
+   (DNS) Parameters" page:
+
+   *  RR Type: TXT
+
+   *  _NODE NAME: _splitdns-challenge
+
+   *  Reference: (This document)
 
 12.  Acknowledgements
 
@@ -774,12 +823,12 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
               add-dnr-13>.
 
    [I-D.ietf-ipsecme-add-ike]
-              Boucadair, M., Reddy, T., Wing, D., and V. Smyslov,
+              Boucadair, M., Reddy.K, T., Wing, D., and V. Smyslov,
               "Internet Key Exchange Protocol Version 2 (IKEv2)
               Configuration for Encrypted DNS", Work in Progress,
               Internet-Draft, draft-ietf-ipsecme-add-ike-09, 27 February
-              2023, <https://datatracker.ietf.org/api/v1/doc/document/
-              draft-ietf-ipsecme-add-ike/>.
+              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              ipsecme-add-ike-09>.
 
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
               Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,

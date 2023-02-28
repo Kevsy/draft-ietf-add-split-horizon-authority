@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Reddy, et al.</td>
-<td class="center">Expires 31 August 2023</td>
+<td class="center">Expires 1 September 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-add-split-horizon-authority-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-02-27" class="published">27 February 2023</time>
+<time datetime="2023-02-28" class="published">28 February 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-08-31">31 August 2023</time></dd>
+<dd class="expires"><time datetime="2023-09-01">1 September 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1138,7 +1138,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 August 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1239,6 +1239,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-dhcp-split-dns-authenticati" class="internal xref">DHCP Split DNS Authentication Algorithm</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-provisioning-domains-split-" class="internal xref">Provisioning Domains Split DNS Additional Information</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
+                <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="auto internal xref">11.3</a>.  <a href="#name-dns-underscore-name" class="internal xref">DNS Underscore Name</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
@@ -1523,8 +1534,9 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
           <h4 id="name-using-provisioning-domains">
 <a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-using-provisioning-domains" class="section-name selfRef">Using Provisioning Domains</a>
           </h4>
-<p id="section-5.2.2-1">When using Provisioning Domains, the Authorization Claims are represented
-          by the PvD Additional Information key $TBD2, whose value is a
+<p id="section-5.2.2-1">When using <span><a href="#RFC8801" class="internal xref">Provisioning Domains</a> [<a href="#RFC8801" class="cite xref">RFC8801</a>]</span>, the
+          Authorization Claims are represented by the PvD Additional
+          Information key "splitDnsClaims", whose value is a
           JSON Array.  Each entry in the array <span class="bcp14">MUST</span> be a JSON object
           with the following structure:<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1952,7 +1964,67 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
       <h2 id="name-iana-considerations">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-11-1">TODO: New DHCP Auth Algorithm, PvD key, and underscore registry name.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<section id="section-11.1">
+        <h3 id="name-dhcp-split-dns-authenticati">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-dhcp-split-dns-authenticati" class="section-name selfRef">DHCP Split DNS Authentication Algorithm</a>
+        </h3>
+<p id="section-11.1-1">IANA is requested to add the following entry to the "Protocol Name Space
+        Values" registry on the "Dynamic Host Configuration Protocol (DHCP)
+        Authentication Option Name Spaces" page:<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11.1-2.1">Value: $TBD1<a href="#section-11.1-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.1-2.2">Description: Split DNS<a href="#section-11.1-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.1-2.3">Reference: (This Document)<a href="#section-11.1-2.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+<section id="section-11.2">
+        <h3 id="name-provisioning-domains-split-">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-provisioning-domains-split-" class="section-name selfRef">Provisioning Domains Split DNS Additional Information</a>
+        </h3>
+<p id="section-11.2-1">IANA is requested to add the following entry to the "Additional
+        Information PvD Keys" registry on the "Provisioning Domains (PvDs)" page:<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11.2-2.1">JSON key: "splitDnsClaims"<a href="#section-11.2-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.2-2.2">Description: "Verifiable locally served domains"<a href="#section-11.2-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.2-2.3">Type: Array of Objects<a href="#section-11.2-2.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.2-2.4">
+            <p id="section-11.2-2.4.1">Example:<a href="#section-11.2-2.4.1" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-11.2-2.4.2">
+<pre>[{
+  "resolver": "dns.example.net",
+  "parent": "example.com",
+  "subdomains": ["sub"],
+  "algorithm": "SHA384",
+  "salt": "abc...123"
+}]</pre><a href="#section-11.2-2.4.2" class="pilcrow">¶</a>
+</div>
+</li>
+          <li class="normal" id="section-11.2-2.5">Reference: (This document)<a href="#section-11.2-2.5" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
+<section id="section-11.3">
+        <h3 id="name-dns-underscore-name">
+<a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-dns-underscore-name" class="section-name selfRef">DNS Underscore Name</a>
+        </h3>
+<p id="section-11.3-1">IANA is requested to add the following entry to the "Underscored and
+        Globally Scoped DNS Node Names" registry on the "Domain Name System (DNS)
+        Parameters" page:<a href="#section-11.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-11.3-2.1">RR Type: TXT<a href="#section-11.3-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.3-2.2">_NODE NAME: _splitdns-challenge<a href="#section-11.3-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-11.3-2.3">Reference: (This document)<a href="#section-11.3-2.3" class="pilcrow">¶</a>
+</li>
+        </ul>
+</section>
 </section>
 </div>
 <section id="section-12">
@@ -2032,7 +2104,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
 <dd class="break"></dd>
 <dt id="I-D.ietf-ipsecme-add-ike">[I-D.ietf-ipsecme-add-ike]</dt>
         <dd>
-<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Reddy, T.</span>, <span class="refAuthor">Wing, D.</span>, and <span class="refAuthor">V. Smyslov</span>, <span class="refTitle">"Internet Key Exchange Protocol Version 2 (IKEv2) Configuration for Encrypted DNS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ipsecme-add-ike-09</span>, <time datetime="2023-02-27" class="refDate">27 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/api/v1/doc/document/draft-ietf-ipsecme-add-ike/">https://datatracker.ietf.org/api/v1/doc/document/draft-ietf-ipsecme-add-ike/</a>&gt;</span>. </dd>
+<span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Wing, D.</span>, and <span class="refAuthor">V. Smyslov</span>, <span class="refTitle">"Internet Key Exchange Protocol Version 2 (IKEv2) Configuration for Encrypted DNS"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ipsecme-add-ike-09</span>, <time datetime="2023-02-27" class="refDate">27 February 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ipsecme-add-ike-09">https://datatracker.ietf.org/doc/html/draft-ietf-ipsecme-add-ike-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2132">[RFC2132]</dt>
         <dd>
