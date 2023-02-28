@@ -303,10 +303,8 @@ Table of Contents
    To approve this claim, the zone operator would publish the following
    record:
 
-resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
-"token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD-Djetw2MCg"
-
-                               Figure 1
+   resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
+   "token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD-Djetw2MCg"
 
 5.2.  Conveying Authorization Claims
 
@@ -454,7 +452,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
    subdomain.parent.example.        IN AAAA 2001:db8::17
    deeper.subdomain.parent.example. IN AAAA 2001:db8::18
 
-                     Figure 2: Example use of "ds=..."
+                     Figure 1: Example use of "ds=..."
 
 8.  Examples of Split-Horizon DNS Configuration
 
@@ -470,7 +468,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
    different version of its global domain on its internal network.
 
    First, the host and network both need to support one of the discovery
-   mechanisms described in Section 5.  Figure 3 shows discovery using
+   mechanisms described in Section 5.  Figure 2 shows discovery using
    DNR and PvD.
 
    Validation is then perfomed using either an external resolver
@@ -491,18 +489,18 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
       certificate, and retrieves the provisioning domain JSON
       information indicated by the associated PvD.  The PvD contains:
 
-        {
-          "identifier": "pvd.example.com",
-          "expires": "2020-05-23T06:00:00Z",
-          "prefixes": ["2001:db8:1::/48", "2001:db8:4::/48"],
-          "$TBD2": [{
-            "resolver": "dns.example.net",
-            "parent": "example.com",
-            "subdomains": [""],
-            "algorithm": "SHA384",
-            "salt": "abc...123"
-          }]
-        }
+      {
+        "identifier": "pvd.example.com",
+        "expires": "2020-05-23T06:00:00Z",
+        "prefixes": ["2001:db8:1::/48", "2001:db8:4::/48"],
+        "$TBD2": [{
+          "resolver": "dns.example.net",
+          "parent": "example.com",
+          "subdomains": [""],
+          "algorithm": "SHA384",
+          "salt": "abc...123"
+        }]
+      }
 
       The JSON keys "identifier", "expires", and "prefixes" are defined
       in [RFC8801].
@@ -545,7 +543,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
       |-| {..., "$TBD2": [...] } |          |         |            |
       | |------------------------|          |         |            |
 
-              Figure 3: Learning Local Claims of DNS Authority
+              Figure 2: Learning Local Claims of DNS Authority
 
 8.1.1.  Verification using an external resolver
 
@@ -592,7 +590,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
         |----------------------------------------->|         |
         |                                          |         |
 
-           Figure 4: Verifying claims using an external resolver
+           Figure 3: Verifying claims using an external resolver
 
 8.1.2.  Verification using DNSSEC
 
@@ -637,7 +635,7 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
      |-------------------------------------------------------------->|
      |                                                               |
 
-                  Figure 5: Verifying claims using DNSSEC
+                  Figure 4: Verifying claims using DNSSEC
 
 8.2.  Internal-only Subdomains
 

@@ -1489,14 +1489,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
         </ul>
 <p id="section-5.1-3">To approve this claim, the zone operator would publish the following record:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<figure id="figure-1">
-          <div class="alignLeft art-text artwork" id="section-5.1-4.1">
+<div class="lang-dns-rr sourcecode" id="section-5.1-4">
 <pre>
 resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
 "token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD-Djetw2MCg"
-</pre>
+</pre><a href="#section-5.1-4" class="pilcrow">¶</a>
 </div>
-<figcaption><a href="#figure-1" class="selfRef">Figure 1</a></figcaption></figure>
 </section>
 <section id="section-5.2">
         <h3 id="name-conveying-authorization-cla">
@@ -1646,8 +1644,8 @@ resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
       for this local encrypted resolver.  If the "ds" key is not present in a valid
       Verification Record, the client <span class="bcp14">MUST</span> disable DNSSEC validation
       when resolving the claimed subdomains via this local encrypted resolver.<a href="#section-7-3" class="pilcrow">¶</a></p>
-<span id="name-example-use-of-ds"></span><figure id="figure-2">
-        <div class="alignLeft art-text artwork" id="section-7-4.1">
+<span id="name-example-use-of-ds"></span><figure id="figure-1">
+        <div class="sourcecode" id="section-7-4.1">
 <pre>
 ;; Parent zone
 $ORIGIN parent.example.
@@ -1675,7 +1673,7 @@ subdomain.parent.example.        IN AAAA 2001:db8::17
 deeper.subdomain.parent.example. IN AAAA 2001:db8::18
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-example-use-of-ds" class="selfRef">Example use of "ds=..."</a>
         </figcaption></figure>
 </section>
@@ -1696,7 +1694,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
 <p id="section-8.1-1">Consider an organization that operates "example.com", and runs a
         different version of its global domain on its internal network.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <p id="section-8.1-2">First, the host and network both need to support one of the discovery
-        mechanisms described in <a href="#establishing" class="auto internal xref">Section 5</a>. <a href="#fig-learn" class="auto internal xref">Figure 3</a>
+        mechanisms described in <a href="#establishing" class="auto internal xref">Section 5</a>. <a href="#fig-learn" class="auto internal xref">Figure 2</a>
         shows discovery using DNR and PvD.<a href="#section-8.1-2" class="pilcrow">¶</a></p>
 <p id="section-8.1-3">Validation is then perfomed using either <span><a href="#example-verify-external" class="internal xref">an external resolver</a> (<a href="#example-verify-external" class="auto internal xref">Section 8.1.1</a>)</span> or <span><a href="#example-verify-dnssec" class="internal xref">DNSSEC</a> (<a href="#example-verify-dnssec" class="auto internal xref">Section 8.1.2</a>)</span>.<a href="#section-8.1-3" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
@@ -1717,26 +1715,26 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
             validates its certificate, and retrieves the provisioning domain
             JSON information indicated by the associated PvD. The PvD
             contains:<a href="#section-8.1-4.3.1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-8.1-4.3.2">
-<pre>  {
-    "identifier": "pvd.example.com",
-    "expires": "2020-05-23T06:00:00Z",
-    "prefixes": ["2001:db8:1::/48", "2001:db8:4::/48"],
-    "$TBD2": [{
-      "resolver": "dns.example.net",
-      "parent": "example.com",
-      "subdomains": [""],
-      "algorithm": "SHA384",
-      "salt": "abc...123"
-    }]
-  }</pre><a href="#section-8.1-4.3.2" class="pilcrow">¶</a>
+<div class="lang-json sourcecode" id="section-8.1-4.3.2">
+<pre>{
+  "identifier": "pvd.example.com",
+  "expires": "2020-05-23T06:00:00Z",
+  "prefixes": ["2001:db8:1::/48", "2001:db8:4::/48"],
+  "$TBD2": [{
+    "resolver": "dns.example.net",
+    "parent": "example.com",
+    "subdomains": [""],
+    "algorithm": "SHA384",
+    "salt": "abc...123"
+  }]
+}</pre><a href="#section-8.1-4.3.2" class="pilcrow">¶</a>
 </div>
 <p id="section-8.1-4.3.3">The JSON keys "identifier", "expires", and "prefixes"
             are defined in <span>[<a href="#RFC8801" class="cite xref">RFC8801</a>]</span>.<a href="#section-8.1-4.3.3" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <span id="name-learning-local-claims-of-dn"></span><div id="fig-learn">
-<figure id="figure-3">
+<figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-8.1-5.1">
 <pre>
 +---------+         +--------------------+  +------------+ +--------+
@@ -1778,7 +1776,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
    | |------------------------|          |         |            |
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-learning-local-claims-of-dn" class="selfRef">Learning Local Claims of DNS Authority</a>
           </figcaption></figure>
 </div>
@@ -1805,7 +1803,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
               any names that fall within the claimed zones.<a href="#section-8.1.1-2.2" class="pilcrow">¶</a>
 </li>
           </ul>
-<span id="name-verifying-claims-using-an-e"></span><figure id="figure-4">
+<span id="name-verifying-claims-using-an-e"></span><figure id="figure-3">
             <div class="alignLeft art-text artwork" id="section-8.1.1-3.1">
 <pre>
 +---------+                  +--------------------+  +----------+
@@ -1837,7 +1835,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
      |                                          |         |
 </pre>
 </div>
-<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-verifying-claims-using-an-e" class="selfRef">Verifying claims using an external resolver</a>
             </figcaption></figure>
 </section>
@@ -1866,7 +1864,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
               any names that fall within the claimed zones.<a href="#section-8.1.2-2.2" class="pilcrow">¶</a>
 </li>
           </ul>
-<span id="name-verifying-claims-using-dnss"></span><figure id="figure-5">
+<span id="name-verifying-claims-using-dnss"></span><figure id="figure-4">
             <div class="alignLeft art-text artwork" id="section-8.1.2-3.1">
 <pre>
 +---------+                                    +--------------------+
@@ -1895,7 +1893,7 @@ deeper.subdomain.parent.example. IN AAAA 2001:db8::18
   |                                                               |
 </pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
 <a href="#name-verifying-claims-using-dnss" class="selfRef">Verifying claims using DNSSEC</a>
             </figcaption></figure>
 </section>
