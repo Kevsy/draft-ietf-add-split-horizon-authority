@@ -5,15 +5,15 @@
 ADD                                                             T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                                 D. Wing
-Expires: 1 September 2023                                         Citrix
+Expires: 7 September 2023                                         Citrix
                                                                 K. Smith
                                                                 Vodafone
                                                              B. Schwartz
                                                                   Google
-                                                        28 February 2023
+                                                            6 March 2023
 
 
-     Establishing Local DNS Authority in Split-Horizon Environments
+Establishing Local DNS Authority in Validated Split-Horizon Environments
              draft-ietf-add-split-horizon-authority-latest
 
 Abstract
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2023.
+   This Internet-Draft will expire on 7 September 2023.
 
 Copyright Notice
 
@@ -152,7 +152,9 @@ Table of Contents
    and clients that allows the network to establish its authority over a
    domain to a client (Section 5).  Clients can use this protocol to
    confirm that a local domain hint was authorized by the domain
-   (Section 6), which might influence its processing of that hint.
+   (Section 6), which might influence its processing of that hint.  This
+   process requires cooperation between the local DNS zone and the
+   public zone.
 
    This specification relies on securely identified local DNS servers,
    and checks each local domain hint against a globally valid parent
@@ -928,4 +930,4 @@ Authors' Addresses
 
    Benjamin Schwartz
    Google LLC
-   Email: bemasc@google.com
+   Email: ietf@bemasc.net
