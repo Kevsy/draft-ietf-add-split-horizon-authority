@@ -122,7 +122,7 @@ Table of Contents
    In many network environments, the network offers clients a DNS server
    (e.g.  DHCP OFFER, IPv6 Router Advertisement).  Although this server
    is formally specified as a recursive resolver (e.g.  Section 5.1 of
-   [RFC6106]), some networks provide a hybrid resolver instead.  If this
+   [RFC8106]), some networks provide a hybrid resolver instead.  If this
    resolver acts as an authoritative server for some names, we say that
    the network has "split-horizon DNS", because those names resolve in
    this way only from inside the network.
@@ -230,7 +230,7 @@ Table of Contents
 
    To establish its authority over some DNS zone, a participating
    network MUST offer one or more encrypted resolvers via DNR
-   [I-D.ietf-add-dnr], DDR [I-D.ietf-add-dnr], or an equivalent
+   [I-D.ietf-add-dnr], DDR [I-D.ietf-add-ddr], or an equivalent
    mechanism (see Section 9).
 
    To establish local authority, the network MUST convey one or more
@@ -303,10 +303,11 @@ Table of Contents
    *  Salt = "example salt bytes (should be random)"
 
    To approve this claim, the zone operator would publish the following
-   record:
+   record (using [RFC8792] line-wrapping):
 
-   resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
-   "token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD-Djetw2MCg"
+     resolver17.parent.example._splitdns-challenge.parent.example. IN TXT \
+     "token=6rQ7oOZqdg8qQFRqtxpEhK97mNkgFwzNKTmNOtlxspBscZqUwFZZJDDD- \
+     Djetw2MCg"
 
 5.2.  Conveying Authorization Claims
 
@@ -830,24 +831,6 @@ Table of Contents
               2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
               ipsecme-add-ike-09>.
 
-   [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
-              Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
-              <https://www.rfc-editor.org/info/rfc2132>.
-
-   [RFC2937]  Smith, C., "The Name Service Search Option for DHCP",
-              RFC 2937, DOI 10.17487/RFC2937, September 2000,
-              <https://www.rfc-editor.org/info/rfc2937>.
-
-   [RFC3397]  Aboba, B. and S. Cheshire, "Dynamic Host Configuration
-              Protocol (DHCP) Domain Search Option", RFC 3397,
-              DOI 10.17487/RFC3397, November 2002,
-              <https://www.rfc-editor.org/info/rfc3397>.
-
-   [RFC3646]  Droms, R., Ed., "DNS Configuration options for Dynamic
-              Host Configuration Protocol for IPv6 (DHCPv6)", RFC 3646,
-              DOI 10.17487/RFC3646, December 2003,
-              <https://www.rfc-editor.org/info/rfc3646>.
-
    [RFC4702]  Stapp, M., Volz, B., and Y. Rekhter, "The Dynamic Host
               Configuration Protocol (DHCP) Client Fully Qualified
               Domain Name (FQDN) Option", RFC 4702,
@@ -864,23 +847,19 @@ Table of Contents
               DOI 10.17487/RFC5986, September 2010,
               <https://www.rfc-editor.org/info/rfc5986>.
 
-   [RFC6106]  Jeong, J., Park, S., Beloeil, L., and S. Madanapalli,
-              "IPv6 Router Advertisement Options for DNS Configuration",
-              RFC 6106, DOI 10.17487/RFC6106, November 2010,
-              <https://www.rfc-editor.org/info/rfc6106>.
-
    [RFC6731]  Savolainen, T., Kato, J., and T. Lemon, "Improved
               Recursive DNS Server Selection for Multi-Interfaced
               Nodes", RFC 6731, DOI 10.17487/RFC6731, December 2012,
               <https://www.rfc-editor.org/info/rfc6731>.
 
-   [RFC7556]  Anipko, D., Ed., "Multiple Provisioning Domain
-              Architecture", RFC 7556, DOI 10.17487/RFC7556, June 2015,
-              <https://www.rfc-editor.org/info/rfc7556>.
-
    [RFC7686]  Appelbaum, J. and A. Muffett, "The ".onion" Special-Use
               Domain Name", RFC 7686, DOI 10.17487/RFC7686, October
               2015, <https://www.rfc-editor.org/info/rfc7686>.
+
+   [RFC8106]  Jeong, J., Park, S., Beloeil, L., and S. Madanapalli,
+              "IPv6 Router Advertisement Options for DNS Configuration",
+              RFC 8106, DOI 10.17487/RFC8106, March 2017,
+              <https://www.rfc-editor.org/info/rfc8106>.
 
    [RFC8310]  Dickinson, S., Gillmor, D., and T. Reddy, "Usage Profiles
               for DNS over TLS and DNS over DTLS", RFC 8310,
@@ -895,6 +874,11 @@ Table of Contents
               Internet Key Exchange Protocol Version 2 (IKEv2)",
               RFC 8598, DOI 10.17487/RFC8598, May 2019,
               <https://www.rfc-editor.org/info/rfc8598>.
+
+   [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
+              "Handling Long Lines in Content of Internet-Drafts and
+              RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
+              <https://www.rfc-editor.org/info/rfc8792>.
 
    [RFC8806]  Kumari, W. and P. Hoffman, "Running a Root Server Local to
               a Resolver", RFC 8806, DOI 10.17487/RFC8806, June 2020,
