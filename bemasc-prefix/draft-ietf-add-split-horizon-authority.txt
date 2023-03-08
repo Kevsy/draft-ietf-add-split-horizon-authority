@@ -5,12 +5,12 @@
 ADD                                                             T. Reddy
 Internet-Draft                                                     Nokia
 Intended status: Standards Track                                 D. Wing
-Expires: 7 September 2023                                         Citrix
+Expires: 9 September 2023                                         Citrix
                                                                 K. Smith
                                                                 Vodafone
                                                              B. Schwartz
                                                                   Google
-                                                            6 March 2023
+                                                            8 March 2023
 
 
 Establishing Local DNS Authority in Validated Split-Horizon Environments
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 September 2023.
+   This Internet-Draft will expire on 9 September 2023.
 
 Copyright Notice
 
@@ -495,7 +495,7 @@ Table of Contents
         "identifier": "pvd.example.com",
         "expires": "2020-05-23T06:00:00Z",
         "prefixes": ["2001:db8:1::/48", "2001:db8:4::/48"],
-        "$TBD2": [{
+        "splitDnsClaims": [{
           "resolver": "dns.example.net",
           "parent": "example.com",
           "subdomains": [""],
@@ -528,7 +528,7 @@ Table of Contents
       |------------------------------------>|         |            |
       | ---------------------------\        |         |            |
       |-| validate TLS certificate |        |         |            |
-      | |--------------------------|        |         |            |
+      | |--------------------------/        |         |            |
       |                                     |         |            |
       | resolve pvd.example.com  (4)        |         |            |
       |------------------------------------>|         |            |
@@ -541,9 +541,9 @@ Table of Contents
       |                                     |         |            |
       |  200 OK (JSON Additional Information) (7)     |            |
       |<----------------------------------------------|            |
-      | -------------------------\          |         |            |
-      |-| {..., "$TBD2": [...] } |          |         |            |
-      | |------------------------|          |         |            |
+      | ----------------------------------\ |         |            |
+      |-| {..., "splitDnsClaims": [...] } | |         |            |
+      | |---------------------------------/ |         |            |
 
               Figure 2: Learning Local Claims of DNS Authority
 
